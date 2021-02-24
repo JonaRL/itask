@@ -1,5 +1,4 @@
 import requests
-import subprocess
 import sys
 
 #NUR Dinge unter dieser Linie ändern!
@@ -37,7 +36,7 @@ date2 = "</td>"
 headers = {'User-Agent': 'Mozilla/5.0'} #User-Agent (Browser) festlegen
 credits = {'_username': username, '_password': password} #Login-Daten festlegen
 
-print("IServ Task Downloader v0.0.4 by JonaRL")
+print("IServ Task Downloader v0.0.5 by JonaRL")
 
 #Den Nutzer benachrichtigen, wenn er nichts konfiguriert hat.
 if server == "demo-iserv.de":
@@ -65,17 +64,19 @@ for ii in range(i):
 
 #Prüfen, welche Aufgaben neu sind und welche bereits heruntergeladen wurden
 try:
-  oldtasks = subprocess.check_output("cat " + datafolder + "tasks.list", shell=True).decode("utf-8")
+  oldtasks = open(datafolder + "tasks.list", "r").read()
   for i in range(len(tasks)):
     if oldtasks.find(tasks[i]) != -1:
       newtasks.remove(tasks[i])
     else:
-      subprocess.run("echo \"" + tasks[i] + "\" >> " + datafolder + "tasks.list", shell=True)
+      with open(datafolder + "tasks.list", "a") as f:
+        f.write(tasks[i] + "\n")
 except: #Sollte das Programm zum ersten Mal gestartet werden und es noch keine Liste geben, gibt es einen Fehler.
 
   #Alle Aufgaben in die Liste aller Aufgaben schreiben
   for i in range(len(tasks)):
-    subprocess.run("echo \"" + tasks[i] + "\" >> " + datafolder + "tasks.list", shell=True)
+    with open(datafolder + "tasks.list", "a") as f:
+      file_object.write(tasks[i] + "\n")
 
   #HTML-Index schreiben
   with open(index, 'w') as f:
@@ -108,7 +109,7 @@ for i in range(len(tasks)):
   while html.find(fileurl) != -1:
 
     #HTML neu schreiben (Tabelle fixen)
-    newtml = subprocess.check_output("cat " + datafolder + tasks[i].split("/")[6] + '.html', shell=True).decode("utf-8")
+    newtml = open(datafolder + tasks[i].split("/")[6] + '.html', "r").read()
     newtml = newtml.replace("<col width=\"1%\">", "").replace("<th></th>", "")
     newtml = newtml.split("<td class=\"pl0\"><div class=\"dropdown\">")[0] + newtml.split("</div>\n</td>", 1)[1]
     with open(datafolder + tasks[i].split("/")[6] + '.html', 'w') as f:
@@ -121,21 +122,25 @@ for i in range(len(tasks)):
 
     #Datei herunterladen
     print("Externe Datei wird heruntergeladen... (Dies kann einen Moment dauern)")
-    file = "https://" + server + html.split(file1)[1].split(file2)[0]
+    htmlfile = "https://" + server + html.split(file1)[1].split(file2)[0]
     
     #Link ändern
-    subprocess.run("sed -i 's/" + file.split(server)[1].replace("/", "\/") + "/" + datafolder.replace("/", "\/") + file.split("/")[7] + "." + fileend + "/g' " + datafolder + tasks[i].split("/")[6] + '.html', shell=True)
+    data =  open(datafolder + tasks[i].split("/")[6] + '.html', 'r').readlines() #1. Datei einlesen
+    for ii in range(len(data)): #2. Dinge ändern
+      data[ii] = data[ii].replace(htmlfile.split(server)[1], datafolder + htmlfile.split("/")[7] + "." + fileend)
+    with open(datafolder + tasks[i].split("/")[6] + '.html', 'w') as f: #3. Geänderte Datei zurückschreiben
+      f.writelines(data)
 
     #Externe Datei speichern
-    with open(datafolder + file.split("/")[7] + "." + fileend, "wb") as f:
-      f.write(session.get(file).content)
+    with open(datafolder + htmlfile.split("/")[7] + "." + fileend, "wb") as f:
+      f.write(session.get(htmlfile).content)
 
-    #HTML replacen (bei mehreren Dateien nicht noch einmal die selbe Datei herunterladen).
-    html = html.replace(file1, "|", 1).replace(file2, "|", 1).replace(fileurl, "|", 1)
+    #HTML replacen (bei mehreren Dateien nicht noch einmal die selbe Datei herunterladen oder andere Dinge verwechseln).
+    html = html.replace(file1, "|", 1).replace(file2, "|", 1).replace(fileurl, "|", 1).replace("<span class=\"text-muted\">", "|", 1)
 
 #Übersicht schreiben
 print("Schreibe Index...")
-oldtasks = subprocess.check_output("cat " + index, shell=True).decode("utf-8").split("</table>")[0]
+oldtasks = open(index, "r").read().split("</table>")[0]
 with open(index, 'w') as f:
   f.write(oldtasks)
   for i in range(len(tasks)):
