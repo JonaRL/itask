@@ -6,26 +6,23 @@ Der "IServ Task Downloader" - kurz "ITask" ist ein Tool zum automatisierten Heru
 ## Features
 **Aktuell bietet ITask bereits folgende Funktionen:**
 
+- Komplette Bedienung über eine grafische Oberfläche
 - Automatisiertes Herunterladen von Aufgaben und zugehörigen Dateien
 - Darstellung aller heruntergeladenen Aufgaben in einem HTML-Tabellendokument
 - Unterstützung der IServ-Filtermöglichkeiten (`current`/`past`/`all`)
 - Speicherung, welche Aufgaben heruntergeladen wurden (Es werden nicht jedes Mal alle Aufgaben heruntergeladen, sondern lediglich neue)
 
 **Folgende Dinge sind zukünftig geplant:**
-- Speicherung von Benutzerdaten außerhalb des Sourcecode
-- Einrichtungsassistent
-- Sortierfunktion für die Übersichtstabelle
-- Verbesserte Darstellung der Aufgaben (Ein wenig mehr CSS)
-- Grafische Benutzeroberfläche
+- Verbesserungen der GUI
 
 ## Installation
 
-Die neueste Version von ITask/itask.py kann unter [Releases](https://github.com/JonaRL/itask/releases) heruntergeladen und anschließend mit dem jeweiligen Python3-Interpreter des Systems in der Kommandozeile heruntergeladen werden. 
+Die neueste Version von ITask/itask.py kann unter [Releases](https://github.com/JonaRL/itask/releases) als .deb heruntergeladen und so auf allen unterstützen Linux-Systemen installiert werden. Für andere Betriebssysteme wird derzeit noch keine einfache Installationslösung angeboten, allerdings kann das Programm natürlich auch im Sourcecode heruntergeladen und anschließend mit dem jeweiligen Python3-Interpreter des Systems in der Kommandozeile ausgeführt werden. 
 >In den gängigen Betriebssystemen geschieht das meist mit folgendem Befehl:
-`python3 itask.py`
+>`python3 itask.py`
 
 ### Hinweise
->Zum Ausführen des Programms muss die python3-Libraby *requests* installiert sein. Dies kann unter vielen Linux-Distributionen beispielsweise folgendermaßen erfolgen:
->`sudo pip3 install requests`
+>Zum Ausführen des Programms müssen die python3-Librarys *requests* und *tkinter* installiert sein. Dies kann unter vielen Linux-Distributionen beispielsweise folgendermaßen erfolgen:
+>`sudo apt install python3-requests python3-tk`
 
-> Alle Ordner, die in der Konfigurationsdatei angegeben werden, müssen bereits zuvor vom Nutzer erstellt worden sein
+> Unter Linux-Betriebssystemen speichert ITask Daten unter /home/$USER/.itask. Auf anderen Systemen wird dort, wo das Programm ausgeführt wird, ein entsprechender Ordner erstellt.
