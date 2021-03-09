@@ -6,9 +6,9 @@ import functools
 import os
 import platform
 
-from . import task as showtask
-from . import gettask
-from . import setup
+import task as showtask
+import gettask
+import setup
 
 if platform.system() == "Linux":
   datafolder = os.path.join(str(Path.home()), ".itask")

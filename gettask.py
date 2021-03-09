@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.ttk import *
 import requests
 import sys
 import os
@@ -7,11 +8,16 @@ def func_main(datafolder):
   print("IServ Task Downloader v0.1.0 by JonaRL - Module: Downloader")
 
   main = Tk()
-  main.geometry("500x200")
+  main.geometry("300x100")
   main.title("Herunterladen...")
 
-  status = Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Statusanzeige")
-  status.grid(row=0, column=0)
+  progress = Progressbar(main, orient="horizontal", length=300, mode="determinate")
+  progress["value"]=0
+  progress.grid(row=0, column=0)
+  status = Label(main, font='Helvetica 11 bold', padding=4, text="Statusanzeige")
+  status.grid(row=1, column=0)
+  download = Label(main, font='Helvetica 11', padding=4, text="")
+  download.grid(row=2, column=0)
   main.update()
 
   #Benutzerdaten auslesen
@@ -95,6 +101,8 @@ def func_main(datafolder):
   
   #Ausgeben, wie viele Aufgaben heruntergeladen wurden und wie viele davon neu sind
   status["text"] = str(len(tasks)) + " Aufgaben gefunden, davon " + str(len(newtasks)) + " neue."
+  progress["maximum"]=len(newtasks)
+  progress["value"]=1
   main.update()
   print(str(len(tasks)) + " Aufgaben gefunden, davon " + str(len(newtasks)) + " neue.")
   tasks = newtasks #Für die weitere Bearbeitung nur die neuen Aufgaben berücksichtigen
@@ -135,14 +143,15 @@ def func_main(datafolder):
         filelinks.append(datafolder + filelink.split("/")[7] + "." + fileend) 
   
         #Externe Datei speichern
-        status["text"] = "Externe Datei wird heruntergeladen... (Dies kann einen Moment dauern)"
+        download["text"] = "Externe Datei wird heruntergeladen..."
         main.update()
-        print("Externe Datei wird heruntergeladen... (Dies kann einen Moment dauern)")
+        print("Externe Datei wird heruntergeladen...")
         with open(datafolder + filelink.split("/")[7] + "." + fileend, "wb") as f:
           f.write(session.get(filelink).content)
   
         #HTML replacen (bei mehreren Dateien nicht noch einmal die selbe Datei herunterladen oder andere Dinge verwechseln).
         html = html.replace(file1, "|", 1).replace(fileurl, "|", 1).replace("<span class=\"text-muted\">", "|", 1).replace(".png\">", "|", 1)
+        download["text"] = ""
   
     except:
       pass
@@ -155,6 +164,7 @@ def func_main(datafolder):
         json[-1] = json[-1] + "{\"name\": \"" + filenames[i] + "\",\n\"link\": \"" + filelinks[i] + "\"},\n"
       json[-1] = json[-1].rsplit(",", 1)[0] + "\n]"
     json[-1] = json[-1] + "\n}"
+    progress["value"] = progress["value"]+1
   
   #Übersicht schreiben
   status["text"] = "Schreibe in JSON-Datei..."
