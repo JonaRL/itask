@@ -19,7 +19,6 @@ setup(
     classifiers=[
         "License :: OSI Approved :: GNU General Public License Version 3",
     ],
-    packages=setuptools.find_packages(),
     python_requires=">=3.6",
 )
 
