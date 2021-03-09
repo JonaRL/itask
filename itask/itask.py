@@ -8,7 +8,7 @@ import platform
 
 from . import task as showtask
 from . import gettask
-from . import setup-wizard as setup
+from . import setupwizard as setup
 
 if platform.system() == "Linux":
   datafolder = os.path.join(str(Path.home()), ".itask")
