@@ -1,0 +1,6 @@
+[build-system]
+requires = [
+    "tkinter",
+    "requests"
+]
+build-backend = "setuptools.build_meta"
