@@ -14,6 +14,9 @@ import popup
 if platform.system() == "Linux":
   datafolder = os.path.join(str(Path.home()), ".itask")
   os.chdir(str(Path.home()))
+elif platform.system() == "Windows":
+  datafolder = os.path.join(str(Path.home()), "AppData", "ITask")
+  os.chdir(os.path.join(str(Path.home()), "AppData"))
 else:
   datafolder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "itask-data")
   os.chdir(os.path.dirname(os.path.realpath(__file__)))

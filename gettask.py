@@ -140,7 +140,7 @@ def func_main(datafolder):
         #Dateidaten den Arrays hinzufügen
         files = files + 1
         filenames.append(html.split(".png\">")[1].split("</a></td>")[0])
-        filelinks.append(datafolder + filelink.split("/")[7] + "." + fileend) 
+        filelinks.append(datafolder.replace('\\', '\\\\') + filelink.split("/")[7] + "." + fileend)
   
         #Externe Datei speichern
         download["text"] = "Externe Datei wird heruntergeladen..."
