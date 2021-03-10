@@ -1,6 +1,9 @@
 from tkinter import * 
 import os
 import functools
+import requests
+
+import popup
 
 tfilter = "current"
 server = ""
@@ -34,17 +37,18 @@ def func_main(df):
   global password
   global main
   global datafolder
+  global popup
   datafolder = df
 
   main = Tk()
   main.title("Einrichtung")
 
   #Einrichtungsassistenten starten
-  Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Willkommen bei ITask!").grid(row=0, column=0)
+  Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Willkommen bei ITask!").grid(row=0, column=0, columnspan=3)
   Label(main, text="Domain:").grid(row=1, column=0)
   Label(main, text="Benutzername:").grid(row=2, column=0)
   Label(main, text="Passwort:").grid(row=3, column=0)
-  Label(main, text="Herunterzuladende Aufgaben:").grid(row=4, column=0)
+  Label(main, text="Aufgaben:").grid(row=4, column=0)
 
   server = Entry(main)
   username = Entry(main)
@@ -58,6 +62,11 @@ def func_main(df):
   taskfilter = OptionMenu(main, value, "current", "past", "all", command=func_update_tfilter)
   taskfilter.config(font='Helvetica 11')
   taskfilter.grid(row=4, column=1)
+
+  Button(main, text="?", command=functools.partial(popup.func_main, 1)).grid(row=1, column=2)
+  Button(main, text="?", command=functools.partial(popup.func_main, 2)).grid(row=2, column=2)
+  Button(main, text="?", command=functools.partial(popup.func_main, 3)).grid(row=3, column=2)
+  Button(main, text="?", command=functools.partial(popup.func_main, 4)).grid(row=4, column=2)
 
   submit = Button(main, text="Speichern", command=func_save)
   submit.grid(row=5, column=0)
