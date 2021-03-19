@@ -6,6 +6,12 @@ def func_main(key):
   main = Tk()
   main.resizable(width=False, height=False)
 
+  if key == 0:
+    main.title("Über")
+    Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="ITask").grid(row=0, column=0)
+    Label(main, font='Helvetica 11', pady=0, padx=4, text="Version 0.1.2").grid(row=1, column=0)
+    #TODO: Add more Info
+
   if key == 1:
     main.title("Hilfe")
     Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Domain").grid(row=0, column=0)

@@ -5,7 +5,7 @@ import sys
 import os
 
 def func_main(datafolder):
-  print("IServ Task Downloader v0.1.0 by JonaRL - Module: Downloader")
+  print("IServ Task Downloader v0.1.2 by JonaRL - Downloader")
 
   main = Tk()
   main.geometry("300x100")

@@ -32,7 +32,7 @@ tasks = 0
 taskloop = 10
 
 main = Tk()
-main.title("ITask v0.1.0")
+main.title("ITask v0.1.2")
 
 def func_showtask(num, event):
   global tdata
@@ -117,11 +117,33 @@ next = Button(master=main, text="\N{RIGHTWARDS BLACK ARROW}", command=func_next)
 next.grid(row=21, column=4, pady=10, sticky='e', padx=10)
 back = Button(master=main, text="\N{LEFTWARDS BLACK ARROW}", state=DISABLED, command=func_back)
 back.grid(row=21, column=0, pady=10, sticky='w', padx=10)
-#TODO: Den Knopf fürs Herunterladen von Aufgaben woanders hinpacken
-download = Button(master=main, text="Auf neue Aufgaben prüfen", command=func_download)
-download.grid(row=21, column=0, pady=10, sticky='e', padx=10)
-func_page()
 
+#Create Menus
+menubar = Menu(main)
+main.config(menu=menubar)
+
+#Create the Menus
+menu_file = Menu(menubar, tearoff=False)
+menu_help = Menu(menubar, tearoff=False)
+
+#Configure File Menu
+menu_file.add_command(label='Auf neue Aufgaben prüfen (Strg+D)', command=func_download)
+menu_file.add_command(label='Einstellungen (Strg+M)')
+menu_file.add_separator()
+menu_file.add_command(label='Beenden (Strg+Q)', command=main.destroy)
+menubar.add_cascade(label="Datei", menu=menu_file)
+
+#Configure Help Menu
+menu_help.add_command(label='Über ITask (Strg+A)', command=functools.partial(popup.func_main, 0))
+menubar.add_cascade(label="Hilfe", menu=menu_help)
+
+#Add Keybinds
+main.bind('<Control-d>', lambda event: func_download())
+main.bind('<Control-q>', lambda event: main.destroy())
+main.bind('<Control-a>', lambda event, key=0: popup.func_main(key))
+
+
+func_page()
 page = 0
 
 mainloop()
