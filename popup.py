@@ -10,7 +10,13 @@ def func_main(key):
     main.title("Über")
     Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="ITask").grid(row=0, column=0)
     Label(main, font='Helvetica 11', pady=0, padx=4, text="Version 0.1.2").grid(row=1, column=0)
-    #TODO: Add more Info
+    Label(main, font='Helvetica 5', pady=0, padx=4, text="").grid(row=2, column=0)
+    Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Entwickelt von:").grid(row=3, column=0)
+    Label(main, font='Helvetica 11', pady=0, padx=4, text="JonaRL").grid(row=4, column=0)
+    Label(main, font='Helvetica 11', pady=0, padx=4, text="(https://github.com/jonarl/itask/)").grid(row=5, column=0)
+    Label(main, font='Helvetica 5', pady=0, padx=4, text="").grid(row=6, column=0)
+    Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Lizenz:").grid(row=7, column=0)
+    Label(main, font='Helvetica 11', pady=0, padx=4, text="GNU GPL Version 3").grid(row=8, column=0)
 
   if key == 1:
     main.title("Hilfe")
