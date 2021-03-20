@@ -10,6 +10,7 @@ import showtask
 import gettask
 import setup
 import popup
+import settings
 
 if platform.system() == "Linux":
   datafolder = os.path.join(str(Path.home()), ".itask")
@@ -30,6 +31,8 @@ page = -1
 label = {}
 tasks = 0
 taskloop = 10
+usrdata = open(os.path.join(datafolder, "user.data")).read()
+
 
 main = Tk()
 main.title("ITask v0.1.2")
@@ -128,19 +131,19 @@ menu_help = Menu(menubar, tearoff=False)
 
 #Configure File Menu
 menu_file.add_command(label='Auf neue Aufgaben prüfen (Strg+D)', command=func_download)
-menu_file.add_command(label='Einstellungen (Strg+M)')
+menu_file.add_command(label='Einstellungen (Strg+M)', command=functools.partial(settings.func_main, datafolder, usrdata.split("taskfilter:")[1].split(";")[0]))
 menu_file.add_separator()
 menu_file.add_command(label='Beenden (Strg+Q)', command=main.destroy)
 menubar.add_cascade(label="Datei", menu=menu_file)
 
 #Configure Help Menu
-menu_help.add_command(label='Über ITask (Strg+A)', command=functools.partial(popup.func_main, 0))
+menu_help.add_command(label='Über ITask', command=functools.partial(popup.func_main, 0))
 menubar.add_cascade(label="Hilfe", menu=menu_help)
 
 #Add Keybinds
 main.bind('<Control-d>', lambda event: func_download())
 main.bind('<Control-q>', lambda event: main.destroy())
-main.bind('<Control-a>', lambda event, key=0: popup.func_main(key))
+main.bind('<Control-m>', lambda event: settings.func_main(datafolder, usrdata.split("taskfilter:")[1].split(";")[0]))
 
 
 func_page()
