@@ -41,9 +41,9 @@ def func_main(datafolder, num):
   tw.insert("0.0", html.unescape(tdata[num]["description"].split("\n", 1)[1]))
   tw['state'] = "disabled"
   tw.grid(row=3, column=1)
-  w = Scrollbar(main, command=tw.yview)
-  w.grid(row=3, column=2)
-  tw['yscrollcommand'] = w.set
+  sb = Scrollbar(main, command=tw.yview)
+  sb.grid(row=3, column=2, sticky="ns")
+  tw['yscrollcommand'] = sb.set
 
   if tdata[num]["files"] != 0:
     obj = Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Dateien:")
