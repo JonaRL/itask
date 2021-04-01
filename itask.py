@@ -33,15 +33,17 @@ else:
   print("WARNING: OS not officially supported")
 
 if os.path.isdir(datafolder) == False:
+  os.mkdir(datafolder)
   setup.func_main(datafolder)
   gettask.func_main(datafolder)
+elif os.path.isfile(os.path.join(datafolder, "user.data")) == False:
+  setup.func_main(datafolder)
 
 page = -1
 label = {}
 tasks = 0
 taskloop = 10
 usrdata = open(os.path.join(datafolder, "user.data")).read()
-
 
 main = Tk()
 main.title("ITask v0.1.2")
