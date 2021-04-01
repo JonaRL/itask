@@ -1,5 +1,9 @@
-from tkinter import *
-from tkinter.ttk import *
+#Import Tkinter requirements
+from tkinter import Tk
+from tkinter.ttk import Progressbar
+from tkinter.ttk import Label
+
+#Import other requirements
 import requests
 import sys
 import os
@@ -42,10 +46,6 @@ def func_main(datafolder):
   filenames = []
   filelinks = []
   json = []
-  table1 = "<tbody class=\"bb0\">"
-  table2 = "</tbody>"
-  html1 = "<html>\n<head>\n<meta locale=\"utf-8\">\n<style>\ntable, th, td {\nborder: 1px solid black;\nborder-collapse: collapse;\npadding: 8px;\n}\n</style>\n</head>\n<body>\n<table>\n<tbody>"
-  html2 = "</tbody>\n</table>\n</body>\n</html>"
   taskname1 = "<h1>Details zu "
   taskname2 = "</h1>"
   taskstart = "<th>Starttermin:</th>"
@@ -54,9 +54,12 @@ def func_main(datafolder):
   textend = "</div>"
   fileurl = "/iserv/fs/file/exercise-dl/"
   file1 = "<a href=\""
-  #file2 = "\">"
   date1 = "<td>"
   date2 = "</td>"
+  att1 = "<form name=\"iserv_exercise_attachment\""
+  att2 = "</form>"
+  fileend1 = "<span class=\"text-muted\">"
+  fileend2 = "</a>"
   headers = {'User-Agent': 'Mozilla/5.0'} #User-Agent (Browser) festlegen
   credits = {'_username': username, '_password': password} #Login-Daten festlegen
   
@@ -128,13 +131,13 @@ def func_main(datafolder):
   
     try:
       #Mit <form> prüfen, ob ein Download existiert.
-      html = html.split("<form name=\"iserv_exercise_attachment\"")[1].split("</form>")[0]
+      html = html.split(att1)[1].split(att2)[0]
   
       #Wenn nötig, zur Aufgabe zugehörige Datei(en) herunterladen und korrekt verlinken
       while html.find(fileurl) != -1:
   
         #Dateidaten ermitteln
-        fileend = html.split("<span class=\"text-muted\">")[0].rsplit(".", 1)[1].split("</a>")[0]
+        fileend = html.split(fileend1)[0].rsplit(".", 1)[1].split(fileend2)[0]
         filelink = "https://" + server + html.split(file1)[1].split("\"")[0]
   
         #Dateidaten den Arrays hinzufügen
@@ -150,7 +153,7 @@ def func_main(datafolder):
           f.write(session.get(filelink).content)
   
         #HTML replacen (bei mehreren Dateien nicht noch einmal die selbe Datei herunterladen oder andere Dinge verwechseln).
-        html = html.replace(file1, "|", 1).replace(fileurl, "|", 1).replace("<span class=\"text-muted\">", "|", 1).replace(".png\">", "|", 1)
+        html = html.replace(file1, "|", 1).replace(fileurl, "|", 1).replace(fileend1, "|", 1).replace(".png\">", "|", 1)
         download["text"] = ""
   
     except:

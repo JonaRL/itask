@@ -1,4 +1,12 @@
-from tkinter import *
+#Import Tkinter requirements
+from tkinter import Tk
+from tkinter import Label
+from tkinter import Frame
+from tkinter import StringVar
+from tkinter import OptionMenu
+from tkinter import Button
+
+#Import other requirements
 import os
 
 tfilter = ""

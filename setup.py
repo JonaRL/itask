@@ -1,8 +1,18 @@
-from tkinter import * 
+#Import Tkinter requirements
+from tkinter import Tk
+from tkinter import Label
+from tkinter import Entry
+from tkinter import StringVar
+from tkinter import OptionMenu
+from tkinter import Button
+from tkinter import mainloop
+
+#Import other requirements
 import os
 import functools
 import requests
 
+#Import internal requirements
 import popup
 
 tfilter = "current"

@@ -1,4 +1,9 @@
-from tkinter import * 
+#Import Tkinter requirements
+from tkinter import Tk
+from tkinter import Label
+from tkinter import mainloop
+
+#Import other requirements
 import sys
 
 def func_main(key):

@@ -1,4 +1,11 @@
-from tkinter import *
+#Import Tkinter requirements
+from tkinter import Tk
+from tkinter import Label
+from tkinter import Text
+from tkinter import Scrollbar
+from tkinter import mainloop
+
+#Import other requirements
 import json
 import os
 import sys

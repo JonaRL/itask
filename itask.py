@@ -1,4 +1,12 @@
-from tkinter import *
+#Import Tkinter requirements
+from tkinter import Tk
+from tkinter import Label
+from tkinter import Frame
+from tkinter import Button
+from tkinter import Menu
+from tkinter import mainloop
+
+#Import other requirements
 from pathlib import Path
 import json
 import sys
@@ -6,6 +14,7 @@ import functools
 import os
 import platform
 
+#Import internal requirements
 import showtask
 import gettask
 import setup
@@ -118,7 +127,7 @@ Frame(main, bg="black", height=1, bd=0).grid(column=1, row=0, rowspan=21, sticky
 Frame(main, bg="black", height=1, bd=0).grid(column=3, row=0, rowspan=21, sticky='ns')
 next = Button(master=main, text="\N{RIGHTWARDS BLACK ARROW}", command=func_next)
 next.grid(row=21, column=4, pady=10, sticky='e', padx=10)
-back = Button(master=main, text="\N{LEFTWARDS BLACK ARROW}", state=DISABLED, command=func_back)
+back = Button(master=main, text="\N{LEFTWARDS BLACK ARROW}", state='disabled', command=func_back)
 back.grid(row=21, column=0, pady=10, sticky='w', padx=10)
 
 #Create Menus
