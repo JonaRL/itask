@@ -64,10 +64,5 @@ def func_main(key):
     Label(main, font='Helvetica 11 bold', pady=0, padx=4, text="all:").grid(row=7, column=0, sticky="w")
     Label(main, font='Helvetica 11', padx=4, text="Alle Aufgaben").grid(row=7, column=1, sticky="w")
 
-  if key == 5:
-    main.title("Hinweis")
-    Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Hinweis").grid(row=0, column=0, columnspan=2)
-    Label(main, font='Helvetica 11', padx=4, text="Bitte starten sie ITask neu,").grid(row=1, column=0, columnspan=2)
-    Label(main, font='Helvetica 11', padx=4, text="um die Änderungen anzuwenden.").grid(row=2, column=0, columnspan=2)
 
   mainloop()

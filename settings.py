@@ -10,7 +10,7 @@ from tkinter import Button
 import os
 
 #Import internal requirements
-import popup
+import setup
 
 tfilter = ""
 main = ""
@@ -38,9 +38,9 @@ def func_save():
 
 def func_rewrite():
   global datafolder
-  global popup
+  global setup
   os.remove(os.path.join(datafolder, "user.data"))
-  popup.func_main(5)
+  setup.func_main(datafolder)
 
 def func_main(dfolder, taskfilter):
   #Tkinter initialisieren
