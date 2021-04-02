@@ -21,22 +21,30 @@ import setup
 import popup
 import settings
 
+print("Iserv Task Downloader (ITask) Version 0.1.3")
+print("Erkenne OS...")
+
 if platform.system() == "Linux":
+  print("Linux-System erkannt!")
   datafolder = os.path.join(str(Path.home()), ".itask")
   os.chdir(str(Path.home()))
 elif platform.system() == "Windows":
+  print("Windows-System erkannt!")
   datafolder = os.path.join(str(Path.home()), "AppData", "ITask")
   os.chdir(os.path.join(str(Path.home()), "AppData"))
 else:
   datafolder = os.path.join(os.path.dirname(os.path.realpath(__file__)), "itask-data")
   os.chdir(os.path.dirname(os.path.realpath(__file__)))
-  print("WARNING: OS not officially supported")
+  print("WARNUNG: OS nicht offiziell unterstützt!")
+print("Datenverzeichnis: " + datafolder)
 
 if os.path.isdir(datafolder) == False:
+  print("Datenverzeichnis existiert nicht und wird daher erstellt.")
   os.mkdir(datafolder)
   setup.func_main(datafolder)
   gettask.func_main(datafolder)
 elif os.path.isfile(os.path.join(datafolder, "user.data")) == False:
+  print("user.data konnte nicht gefunden werden!")
   setup.func_main(datafolder)
 
 page = -1
@@ -45,8 +53,9 @@ tasks = 0
 taskloop = 10
 usrdata = open(os.path.join(datafolder, "user.data")).read()
 
+print("Initialisiere Tkinter...")
 main = Tk()
-main.title("ITask v0.1.2")
+main.title("ITask v0.1.3")
 
 def func_showtask(num, event):
   global tdata
@@ -66,6 +75,7 @@ b.grid(row=0, column=2)
 b = Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Abgabedatum")
 b.grid(row=0, column=4)
 
+print("Lade Aufgaben...")
 tdata = json.loads(open(os.path.join(datafolder, "tasks.json"), "r").read())
 
 for i in range(1,11,1):
@@ -135,8 +145,6 @@ back.grid(row=21, column=0, pady=10, sticky='w', padx=10)
 #Create Menus
 menubar = Menu(main)
 main.config(menu=menubar)
-
-#Create the Menus
 menu_file = Menu(menubar, tearoff=False)
 menu_help = Menu(menubar, tearoff=False)
 

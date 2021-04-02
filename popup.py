@@ -10,6 +10,7 @@ def func_main(key):
 
   main = Tk()
   main.resizable(width=False, height=False)
+  print("Öffne Popup mit dem Key " + str(key))
 
   if key == 0:
     main.title("Über")

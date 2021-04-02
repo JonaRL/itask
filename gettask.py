@@ -9,7 +9,7 @@ import sys
 import os
 
 def func_main(datafolder):
-  print("IServ Task Downloader v0.1.2 by JonaRL - Downloader")
+  print("Starte Aufgabendownload")
 
   main = Tk()
   main.geometry("300x100")

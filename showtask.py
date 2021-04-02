@@ -14,10 +14,11 @@ import webbrowser
 import functools
 
 def func_openfile(link, event):
-  print(link)
+  print("Öffne externe Datei unter " + link)
   webbrowser.open(link)  
 
 def func_main(datafolder, num):
+  print("Zeige Aufgabe Nummer " + str(num))
   tdata = json.loads(open(os.path.join(datafolder, "tasks.json")).read())
 
   main = Tk()
