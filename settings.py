@@ -8,9 +8,11 @@ from tkinter import Button
 
 #Import other requirements
 import os
+import functools
 
 #Import internal requirements
 import setup
+import popup
 
 tfilter = ""
 main = ""
@@ -53,8 +55,8 @@ def func_main(dfolder, taskfilter):
 
   #Elemente hinzufügen
   Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Einstellungen").grid(row=0, column=0, columnspan=2)
-  Frame(main, bg="grey", height=1, bd=0).grid(column=0, row=1, columnspan=2, sticky='ew')
-  Frame(main, bg="grey", height=1, bd=0).grid(column=0, row=4, columnspan=2, sticky='ew')
+  Frame(main, bg="grey", height=1, bd=0).grid(column=0, row=1, columnspan=3, sticky='ew')
+  Frame(main, bg="grey", height=1, bd=0).grid(column=0, row=4, columnspan=3, sticky='ew')
 
   #Auswahl: taskfilter
   Label(main, text="Aufgaben:").grid(row=2, column=0, pady=4, padx=4)
@@ -65,5 +67,6 @@ def func_main(dfolder, taskfilter):
   taskfilter.grid(row=2, column=1)
 
   #Buttons
+  Button(master=main, text="?", command=functools.partial(popup.func_main, 4)).grid(row=2, column=2, pady=5, padx=5)
   Button(master=main, text="Speichern", command=func_save).grid(row=3, column=1, pady=5, sticky='e', padx=5)
-  Button(master=main, text="Nutzerdaten aktualisieren...", command=func_rewrite).grid(row=5, column=0, columnspan=2, pady=5, padx=5, sticky="w")
+  Button(master=main, text="Nutzerdaten aktualisieren...", command=func_rewrite).grid(row=5, column=0, columnspan=3, pady=5, padx=5, sticky="w")
