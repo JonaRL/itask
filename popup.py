@@ -65,5 +65,4 @@ def func_main(key):
     Label(main, font='Helvetica 11 bold', pady=0, padx=4, text="all:").grid(row=7, column=0, sticky="w")
     Label(main, font='Helvetica 11', padx=4, text="Alle Aufgaben").grid(row=7, column=1, sticky="w")
 
-
   mainloop()

@@ -13,17 +13,18 @@ import html
 import webbrowser
 import functools
 
-def func_openfile(link, event):
+def func_openfile(link, event): #Open an external file
   print("Öffne externe Datei unter " + link)
   webbrowser.open(link)  
 
 def func_main(datafolder, num):
-  print("Zeige Aufgabe Nummer " + str(num))
-  tdata = json.loads(open(os.path.join(datafolder, "tasks.json")).read())
+  print("Zeige Aufgabe Nummer " + str(num)) #Print which task will be shown
+  tdata = json.loads(open(os.path.join(datafolder, "tasks.json")).read()) #Read task data from tasks.json
 
   main = Tk()
   main.title("Aufgabendetails")
 
+  #Add window elements
   obj = Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Name:")
   obj.grid(row=0, column=0)
   obj = Label(main, font='Helvetica 11', pady=4, padx=4, text=tdata[num]["title"])
@@ -46,13 +47,12 @@ def func_main(datafolder, num):
   sb.grid(row=3, column=2, sticky="ns")
   tw['yscrollcommand'] = sb.set
 
-  if tdata[num]["files"] != 0:
+  if tdata[num]["files"] != 0: #If there are external files, add them as well
     obj = Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Dateien:")
     obj.grid(row=4, column=0)
-    for i in range(tdata[num]["files"]):
+    for i in range(tdata[num]["files"]): #For every external file, add an window element with the file name and bind a button to it
       obj = Label(main, font='Helvetica 11', pady=4, padx=4, fg="blue", cursor="hand1", text=tdata[num]["filedetails"][i]["name"])
       obj.bind("<Button-1>", functools.partial(func_openfile, tdata[num]["filedetails"][i]["link"]))
       obj.grid(row=4+i, column=1)
-
 
   mainloop()
