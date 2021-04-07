@@ -21,7 +21,7 @@ import setup
 import popup
 import settings
 
-print("Iserv Task Downloader (ITask) Version 0.1.3")
+print("Iserv Task Downloader (ITask) Version 0.1.4")
 print("Erkenne OS...")
 
 #Detecting OS in order to know where files are being saved
@@ -58,7 +58,7 @@ usrdata = open(os.path.join(datafolder, "user.data")).read() #Reading informatio
 
 print("Initialisiere Tkinter...")
 main = Tk()
-main.title("ITask v0.1.3")
+main.title("ITask v0.1.4")
 
 def func_showtask(num, event): #Used to show details about a task selected in the GUI
   global tdata
