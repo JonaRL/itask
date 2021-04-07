@@ -12,9 +12,11 @@ Der "IServ Task Downloader" - kurz "ITask" - ist ein Tool zum automatisierten He
 - Unterstützung der IServ-Filtermöglichkeiten (current/past/all)
 - Speicherung, welche Aufgaben heruntergeladen wurden (Es werden nicht jedes Mal alle Aufgaben heruntergeladen, sondern lediglich neue)
 - Einrichtungsassistent
+- Unterstützung von Backups
 
 **Folgende Dinge sind zukünftig geplant:**
-- Unterstützung von Backups
+- Suchfunktion
+- sowie weitere kleinere Verbesserungen
 
 ## Installation
 Die neueste Version von ITask/itask.py kann unter [Releases](https://github.com/JonaRL/itask/releases) als .deb oder .AppImage (für Linux-Systeme) und .exe (für Windows-Systeme) heruntergeladen und so auf allen unterstützen Betriebssystemen ausgeführt werden. Für andere Betriebssysteme wird derzeit noch keine einfache Installationslösung angeboten, allerdings kann das Programm natürlich auch im Sourcecode heruntergeladen und anschließend mit dem jeweiligen Python3-Interpreter des Systems in der Kommandozeile ausgeführt werden. 
