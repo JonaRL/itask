@@ -109,7 +109,11 @@ def func_main(datafolder):
   main.update()
   print(str(len(tasks)) + " Aufgaben gefunden, davon " + str(len(newtasks)) + " neue.")
   tasks = newtasks #Consider only new tasks for further processing
-  tasks = sorted(tasks) #Sort tasks by ID / creation date
+
+  #Sort tasks by ID/creation date
+  for i in range (len(tasks)):
+    tasks[i] = tasks[i].rsplit("/", 1)[0] + "/" + tasks[i].split("/")[6].zfill(6) #Format all task numbers with 6 digits in order to sort them correctly
+  tasks.sort()
   
   #Download tasks
   for i in range(len(tasks)):
