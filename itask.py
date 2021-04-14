@@ -23,6 +23,7 @@ try:
   import setup
   import popup
   import settings
+  import html
 
   print("Iserv Task Downloader (ITask) Version 0.1.4")
   print("Erkenne OS...")
@@ -130,7 +131,7 @@ try:
       taskloop = 11
     for i in range(tdata["tasks"]-1-tasks,tdata["tasks"]-tasks-taskloop,-1): #Runs as long as a task has to be entered in the table. Explanation at https://pastebin.com/V3CU5ZcH
       #Enter title, start and end into table
-      label[tdata["tasks"]-i-tasks]["title"].config(text=tdata[str(i)]["title"])
+      label[tdata["tasks"]-i-tasks]["title"].config(text=html.unescape(tdata[str(i)]["title"]))
       label[tdata["tasks"]-i-tasks]["start"].config(text=tdata[str(i)]["start"])
       label[tdata["tasks"]-i-tasks]["end"].config(text=tdata[str(i)]["end"])
       if page == -1: #If the table is initialized for the first time, some more things have to be done
