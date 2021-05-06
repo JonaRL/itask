@@ -110,6 +110,8 @@ def func_main(datafolder):
   for i in range (len(tasks)):
     tasks[i] = tasks[i].rsplit("/", 1)[0] + "/" + tasks[i].split("/")[6].zfill(6) #Format all task numbers with 6 digits in order to sort them correctly
   tasks.sort()
+  for i in range (len(tasks)): #Remove 0's after sorting in order to note down the URL's correctly
+    tasks[i] = tasks[i].rsplit("/", 1)[0] + "/" + str(int(tasks[i].split("/")[6])) #Format all task numbers with 6 digits in order to sort them correctly
   
   #Download tasks
   for i in range(len(tasks)):
