@@ -7,6 +7,7 @@ from tkinter.ttk import Label
 import requests
 import sys
 import os
+import json
 
 def func_main(datafolder):
   print("Starte Aufgabendownload")
@@ -42,6 +43,7 @@ def func_main(datafolder):
   title = ""
   start = ""
   end = ""
+  url = ""
   files = 0
   filenames = []
   filelinks = []
@@ -88,19 +90,13 @@ def func_main(datafolder):
   
   #Check, which tasks are new and which have already been downloaded
   try:
-    oldtasks = open(datafolder + "tasks.list", "r").read() #Read list of tasks that already have been downloaded
+    oldtasks = open(datafolder + "tasks.json", "r").read() #Read list of tasks that already have been downloaded
     for i in range(len(tasks)):
       if oldtasks.find(tasks[i]) != -1: #If an entry in the downloaded tasks matches an extry in the list of old tasks, that entry will be removed
         newtasks.remove(tasks[i])
-      else: #Otherwise, the task is written to tasks.list
-        with open(datafolder + "tasks.list", "a") as f:
-          f.write(tasks[i] + "\n")
-  except: #If the program is started for the first time, an error occures
-  
-    #Write all downloaded tasks to tasks.list
-    for i in range(len(tasks)):
-      with open(datafolder + "tasks.list", "a") as f:
-        f.write(tasks[i] + "\n")
+  except: #If the program is started for the first time, an error occures. At this point, this is normal.
+    with open(datafolder + "tasks.json", "w") as f:
+      f.write("{\n\"tasks\": 0,\n\"version\": \"1.1\"}")
   
   #Inform the user how many tasks have been found and how many of them are new
   status["text"] = str(len(tasks)) + " Aufgaben gefunden, davon " + str(len(newtasks)) + " neue."
@@ -127,6 +123,7 @@ def func_main(datafolder):
     start = html.split(taskstart)[1].split(date1)[1].split(date2)[0] #Date when the task starts
     end = html.split(taskend)[1].split(date1)[1].split(date2)[0] #Date when the task ends
     description = html.split(textstart)[1].split(textend)[0].replace("\n", "\\n").replace("\"", "") #Task description
+    url = tasks[i]
     while description.find("<") != -1: #Remove HTML tags
       description = description.split("<")[0] + description.split(">", 1)[1]
     files = 0 #Number of external files attached to the task. Will be increased later if there are files.
@@ -164,7 +161,7 @@ def func_main(datafolder):
       pass
   
     #Note in JSON variable
-    json.append("{\n\"title\": \"" + title + "\",\n\"start\": \"" + start + "\",\n\"end\": \"" + end + "\",\n\"description\": \"" + description + "\",\n\"files\": " + str(files))
+    json.append("{\n\"title\": \"" + title + "\",\n\"start\": \"" + start + "\",\n\"end\": \"" + end + "\",\n\"description\": \"" + description + "\",\n\"url\": \"" + url + "\",\n\"files\": " + str(files))
     if files != 0:
       json[-1] = json[-1] + ",\n\"filedetails\": [\n"
       for i in range(files):
@@ -177,9 +174,6 @@ def func_main(datafolder):
   status["text"] = "Schreibe in JSON-Datei..."
   main.update()
   print("Schreibe in JSON-Datei...")
-  if not os.path.exists(datafolder + "tasks.json"):
-    with open(datafolder + "tasks.json", "w") as f:
-      f.write("{\n\"tasks\": 0\n}")
   oldjson = open(datafolder + "tasks.json").read().rsplit("\n}", 1)[0]
   tasks = int(oldjson.split("\"tasks\": ")[1].split(",")[0])
   for i in range(len(json)):

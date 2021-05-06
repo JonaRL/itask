@@ -16,6 +16,7 @@ try:
   import functools
   import os
   import platform
+  import html
 
   #Import internal requirements
   import showtask
@@ -23,9 +24,9 @@ try:
   import setup
   import popup
   import settings
-  import html
+  import migrate
 
-  print("Iserv Task Downloader (ITask) Version 0.1.4")
+  print("Iserv Task Downloader (ITask) Version 0.1.5")
   print("Erkenne OS...")
 
   #Detecting OS in order to know where files are being saved
@@ -51,6 +52,9 @@ try:
   elif os.path.isfile(os.path.join(datafolder, "user.data")) == False: #If the datafolder exists but user.data doesn't, the user deleted his userdata in the settings and didn't set new ones
     print("user.data konnte nicht gefunden werden!")
     setup.func_main(datafolder) #Initializing Setup Assistant
+  elif os.path.isfile(os.path.join(datafolder, "tasks.list")) == True: #If tasks.list exists, the JSON file has to be upgraded to the newest Version in order so support future features
+    print("user.list wurde gefunden! Starte Übertragungsassistenten...")
+    migrate.func_main(datafolder) #Initializing Migration assistant
 
   #Setting some variables
   page = -1
@@ -62,7 +66,7 @@ try:
 
   print("Initialisiere Tkinter...")
   main = Tk()
-  main.title("ITask v0.1.4")
+  main.title("ITask v0.1.5")
 
   def func_showtask(num, event): #Used to show details about a task selected in the GUI
     global tdata
