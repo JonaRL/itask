@@ -59,10 +59,15 @@ def func_main(datafolder):
   print("Verbinde zu IServ...")
   session = requests.Session()
   session.post('https://' + server + '/iserv/login_check', headers=headers, data=credits)
-  
+
+  #Set progressbar
+  progress["maximum"]=len(urls)
+  progress["value"] = 0
+
   #Starting migration
   for i in range(len(urls)):
     status["text"] = "Übertrage Aufgabe " + str(i+1) + " von " + str(len(urls)) + "..."
+    progress["value"] = progress["value"] + 1
     main.update()
     print("Übertrage Aufgabe " + str(i+1) + " von " + str(len(urls)) + "...")
     html = session.get(urls[i-1]).text
@@ -78,14 +83,21 @@ def func_main(datafolder):
         data[str(ii)].update({"url": urls[i-1]})
         data[str(ii)]["url"] == urls[i-1]
 
-    #Add version parameter
-    data.update({"version": "1.1"})
+  #Add version parameter
+  data.update({"version": "1.1"})
 
-    #TODO Dump into actual tasks.json
-    with open("/home/jonathan/tmptst.json", "w") as f:
-      json.dump(data, f, indent=2) #Works!
+  #Update Progress
+  status["text"] = "Schreibe Daten..."
+  progress["value"] = progress["maximum"]
+  main.update()
+  print("Schreibe Daten...")
 
+  #Write to file
+  with open(os.path.join(datafolder, "tasks.json"), "w") as f:
+    json.dump(data, f, indent=2) #Works!
+
+  #Delete tasks.list
+  os.remove(os.path.join(datafolder, "tasks.list"))
+
+  #Destroy window
   main.destroy()
-
-#TODO Remove test function call
-func_main("/home/jonathan/.itask")
