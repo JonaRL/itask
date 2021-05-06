@@ -15,7 +15,7 @@ def func_main(key):
   if key == 0:
     main.title("Über")
     Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="ITask").grid(row=0, column=0)
-    Label(main, font='Helvetica 11', pady=0, padx=4, text="Version 0.1.4").grid(row=1, column=0)
+    Label(main, font='Helvetica 11', pady=0, padx=4, text="Version 0.1.5").grid(row=1, column=0)
     Label(main, font='Helvetica 5', pady=0, padx=4, text="").grid(row=2, column=0)
     Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Entwickelt von:").grid(row=3, column=0)
     Label(main, font='Helvetica 11', pady=0, padx=4, text="JonaRL").grid(row=4, column=0)
