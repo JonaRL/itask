@@ -16,6 +16,7 @@ Der "IServ Task Downloader" - kurz "ITask" - ist ein Tool zum automatisierten He
 
 **Folgende Dinge sind zukünftig geplant:**
 - Suchfunktion
+- Herunterladen von Abgaben und Rückmeldung
 - sowie weitere kleinere Verbesserungen
 
 ## Installation
