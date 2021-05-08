@@ -73,7 +73,6 @@ def func_main(datafolder):
     html = session.get(urls[i-1]).text
   
     #Extract title and start
-    print(urls[i-1])
     title = html.split(taskname1)[1].split(taskname2)[0] #Tasks name
     start = html.split(taskstart)[1].split(date1)[1].split(date2)[0] #Date when the task starts
   
