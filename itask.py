@@ -76,6 +76,14 @@ try:
     else: #If the user isn't at the last page, this will be executed
       showtask.func_main(datafolder, str(tdata["tasks"]-num-page*10)) #Call showtask.py with datafolder and the task number as parameters
 
+  def func_gettask():
+    global page
+    global tdata
+    gettask.func_main(datafolder)
+    tdata = json.loads(open(os.path.join(datafolder, "tasks.json"), "r").read()) #Re-Reading information about all tasks from tasks.json
+    page = 0
+    func_page() #Rebuild table in order to show new tasks
+
   #Create first row of the table
   b = Label(main, font='Helvetica 11 bold', pady=4, padx=4, text="Name")
   b.grid(row=0, column=0)
@@ -172,7 +180,7 @@ try:
   menubar.add_cascade(label="Hilfe", menu=menu_help)
 
   #Add Keybinds
-  main.bind('<Control-d>', lambda event: gettask.func_main(datafolder))
+  main.bind('<Control-d>', lambda event: func_gettask())
   main.bind('<Control-q>', lambda event: main.destroy())
   main.bind('<Control-m>', lambda event: settings.func_main(datafolder, usrdata.split("taskfilter:")[1].split(";")[0]))
 
