@@ -1,13 +1,24 @@
 #Import Tkinter requirements
 from tkinter import Tk
 from tkinter import Label
+from tkinter import Entry
+from tkinter import Button
 from tkinter import mainloop
 
 #Import other requirements
 import sys
 
+def func_return_pass():
+  global main
+  global pwe
+  global password
+  password = pwe.get()
+  main.destroy()
+  main.quit()
+
 def func_main(key):
 
+  global main
   main = Tk()
   main.resizable(width=False, height=False)
   print("Öffne Popup mit dem Key " + str(key))
@@ -64,5 +75,19 @@ def func_main(key):
     Label(main, font='Helvetica 11', padx=4, text="Nur vergangene Aufgaben").grid(row=6, column=1, sticky="w")
     Label(main, font='Helvetica 11 bold', pady=0, padx=4, text="all:").grid(row=7, column=0, sticky="w")
     Label(main, font='Helvetica 11', padx=4, text="Alle Aufgaben").grid(row=7, column=1, sticky="w")
+
+  if key == 5:
+    global pwe
+    global password
+    password = ""
+    main.title("Passwort")
+    Label(main, text="Bitte Passwort eingeben:").grid(row=0, column=0)
+    pwe = Entry(main, show="*")
+    pwe.grid(row=1, column=0)
+    Button(main, text="OK", command=func_return_pass).grid(row=2, column=0, sticky="e")
+    while password == "":
+      main.update()
+    else:
+      return password
 
   mainloop()

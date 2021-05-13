@@ -9,6 +9,9 @@ import sys
 import os
 import json
 
+#Import internet requirements
+import popup
+
 def func_main(datafolder):
   print("Starte Aufgabendownload")
 
@@ -33,7 +36,10 @@ def func_main(datafolder):
   username = usrdata.split("username:")[1].split(";")[0]
   password = usrdata.split("password:")[1].split(";")[0]
   taskfilter = usrdata.split("taskfilter:")[1].split(";")[0]
-  
+
+  if password == "[none]":
+    password = popup.func_main(5)
+
   url1 = "<td class=\"iserv-admin-list-field iserv-admin-list-field-textarea\"><a href=\""
   url2 = "\">"
   name = "</a></td>"
@@ -96,7 +102,7 @@ def func_main(datafolder):
         newtasks.remove(tasks[i])
   except: #If the program is started for the first time, an error occures. At this point, this is normal.
     with open(datafolder + "tasks.json", "w") as f:
-      f.write("{\n\"tasks\": 0,\n\"version\": \"1.1\"}")
+      f.write("{\n\"tasks\": 0,\n\"version\": \"1.1\"\n}")
   
   #Inform the user how many tasks have been found and how many of them are new
   status["text"] = str(len(tasks)) + " Aufgaben gefunden, davon " + str(len(newtasks)) + " neue."
