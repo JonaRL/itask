@@ -69,12 +69,9 @@ try:
   main.title("ITask v0.1.5")
 
   def func_showtask(num, event): #Used to show details about a task selected in the GUI
-    global tdata
+    global tasks
     global showtask
-    if page*10+10 >= tdata["tasks"]: #If the user is on the last page, a different mechanism has to be used to get the number of the clicked task
-      showtask.func_main(datafolder, str(10-num)) #Call showtask.py with datafolder and the task number as parameters
-    else: #If the user isn't at the last page, this will be executed
-      showtask.func_main(datafolder, str(tdata["tasks"]-num-page*10)) #Call showtask.py with datafolder and the task number as parameters
+    showtask.func_main(datafolder, str(num-tasks)) #Call showtask.py with datafolder and the task number as parameters
 
   def func_gettask():
     global page
@@ -96,10 +93,11 @@ try:
   tdata = json.loads(open(os.path.join(datafolder, "tasks.json"), "r").read()) #Reading information about all tasks from tasks.json
 
   for i in range(1,11,1): #As long as there are tasks ins tdata (which has been read from tasks.json), create a row in the table (current max is 10 rows)
-    label[i] = {}
-    label[i]["title"] = Label(main, font='Helvetica 11', pady=4, padx=4, cursor="hand1", text=tdata[str(i)]["title"])
-    label[i]["start"] = Label(main, font='Helvetica 11', pady=4, padx=4, text=tdata[str(i)]["start"])
-    label[i]["end"] = Label(main, font='Helvetica 11', pady=4, padx=4, text=tdata[str(i)]["end"])
+    if tdata["tasks"] >= i:
+      label[i] = {}
+      label[i]["title"] = Label(main, font='Helvetica 11', pady=4, padx=4, cursor="hand1", text=tdata[str(i-1)]["title"])
+      label[i]["start"] = Label(main, font='Helvetica 11', pady=4, padx=4, text=tdata[str(i-1)]["start"])
+      label[i]["end"] = Label(main, font='Helvetica 11', pady=4, padx=4, text=tdata[str(i-1)]["end"])
 
   def func_back(): #Used to get one page back
     global page
@@ -151,7 +149,7 @@ try:
         label[tdata["tasks"]-i-tasks]["title"].grid(row=(tdata["tasks"]-i-tasks)*2, column=0)
         label[tdata["tasks"]-i-tasks]["start"].grid(row=(tdata["tasks"]-i-tasks)*2, column=2)
         label[tdata["tasks"]-i-tasks]["end"].grid(row=(tdata["tasks"]-i-tasks)*2, column=4)
-        label[tdata["tasks"]-i-tasks]["title"].bind("<Button-1>", functools.partial(func_showtask, tdata["tasks"]-i-tasks)) #Add a Button to the title label so that it will be clickable
+        label[tdata["tasks"]-i-tasks]["title"].bind("<Button-1>", functools.partial(func_showtask, i)) #Add a Button to the title label so that it will be clickable
         Frame(main, bg="black", height=1, bd=0).grid(column=0, row=(tdata["tasks"]-i)*2-1, columnspan=5, sticky='ew') #Create a frame which is used to seperate columns
 
   #Put some main elements into their places in the GUI

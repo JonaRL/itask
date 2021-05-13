@@ -18,7 +18,7 @@ def func_openfile(link, event): #Open an external file
   webbrowser.open(link)  
 
 def func_main(datafolder, num):
-  print("Zeige Aufgabe Nummer " + str(num)) #Print which task will be shown
+  print("Zeige Aufgabe Nummer " + num) #Print which task will be shown
   tdata = json.loads(open(os.path.join(datafolder, "tasks.json")).read()) #Read task data from tasks.json
 
   main = Tk()
